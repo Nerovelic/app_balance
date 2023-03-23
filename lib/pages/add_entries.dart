@@ -21,9 +21,9 @@ class AddEntries extends StatelessWidget {
               decoration: Constants.sheetBoxDecoration(
                 Theme.of(context).primaryColorDark
               ),
-              child: const Column(
+              child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: [
+                children: const [
                   Text('Fecha 22 marzo del 2023'),
                   Text('Seleccionar Categoría'),
                   Text('Agregar Comentario'),
