@@ -1,3 +1,5 @@
+import 'package:balance/utils/constants.dart';
+import 'package:balance/widgets/add_expenses_wt/bs_num_keyboard.dart';
 import 'package:flutter/material.dart';
 
 class AddEntries extends StatelessWidget {
@@ -8,9 +10,33 @@ class AddEntries extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Agregar Ingresos'),
+        elevation: 0,
       ),
-      body: const Center(
-        child: Text('Desde ingresos'),
+      body: Column(
+        children: [
+          const BSNumKeyboard(),
+          Expanded(
+            child: Container(
+              width: double.infinity,
+              decoration: Constants.sheetBoxDecoration(
+                Theme.of(context).primaryColorDark
+              ),
+              child: const Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text('Fecha 22 marzo del 2023'),
+                  Text('Seleccionar Categoría'),
+                  Text('Agregar Comentario'),
+                  Expanded(
+                    child: Center(
+                      child: Text('Botón')
+                    )
+                  )
+                ],
+              ),
+            ),
+          )
+        ],
       ),
     );
   }

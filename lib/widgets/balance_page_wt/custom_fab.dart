@@ -1,8 +1,8 @@
 import 'package:balance/pages/add_entries.dart';
 import 'package:balance/pages/add_expenses.dart';
+import 'package:balance/widgets/balance_page_wt/animation_custom.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
-import 'package:animations/animations.dart';
 
 class CustomFAB extends StatelessWidget {
   const CustomFAB({super.key});
@@ -21,28 +21,7 @@ class CustomFAB extends StatelessWidget {
         onTap: () {
           Navigator.push(
             context, 
-            PageRouteBuilder(
-              transitionDuration: const Duration(milliseconds: 500),
-              transitionsBuilder: (
-                BuildContext context,
-                Animation<double> animation,
-                Animation<double> secAnimation,
-                Widget child
-              ){
-                return FadeThroughTransition(
-                  animation: animation,
-                  secondaryAnimation: secAnimation,
-                  child: child,
-                  );
-              },
-              pageBuilder: (
-              BuildContext context,
-              Animation<double> animation,
-              Animation<double> secAnimation
-              ){
-                return const AddExpenses();
-              }
-              )
+            AnimationCustom(paginas: const AddExpenses(), duracion: const Duration(milliseconds: 500), posicion: const Alignment(0.8, 1))
           );
         },
       ),
@@ -57,28 +36,7 @@ class CustomFAB extends StatelessWidget {
         onTap: () {
           Navigator.push(
             context, 
-            PageRouteBuilder(
-              transitionDuration: const Duration(milliseconds: 500),
-              transitionsBuilder: (
-                BuildContext context,
-                Animation<double> animation,
-                Animation<double> secAnimation,
-                Widget child
-              ){
-                return FadeThroughTransition(
-                  animation: animation,
-                  secondaryAnimation: secAnimation,
-                  child: child,
-                  );
-              },
-              pageBuilder: (
-              BuildContext context,
-              Animation<double> animation,
-              Animation<double> secAnimation
-              ){
-                return const AddEntries();
-              }
-              )
+            AnimationCustom(paginas: const AddEntries(), duracion: const Duration(milliseconds: 500), posicion: const Alignment(0.8, 1))
           );
         }
       )

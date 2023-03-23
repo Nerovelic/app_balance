@@ -2,7 +2,6 @@ import 'package:balance/widgets/balance_page_wt/back_sheet.dart';
 import 'package:balance/widgets/balance_page_wt/front_sheet.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
-
 import '../widgets/balance_page_wt/custom_fab.dart';
 
 class BalancePage extends StatefulWidget {
@@ -49,13 +48,13 @@ class _BalancePageState extends State<BalancePage> {
       body: CustomScrollView(
         controller: _scrollController,
         slivers: [
-          SliverAppBar(
+          const SliverAppBar(
             elevation: 0.0,
             expandedHeight: 120,
             flexibleSpace: FlexibleSpaceBar(
               background: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
+                children: [
                   Text(
                     '\$ 2,500.00',
                     style: TextStyle(
