@@ -1,3 +1,4 @@
+import 'package:balance/widgets/add_expenses_wt/button_custom.dart';
 import 'package:flutter/material.dart';
 
 class BSNumKeyboard extends StatefulWidget {
@@ -27,6 +28,13 @@ class _BSNumKeyboardState extends State<BSNumKeyboard> {
               letterSpacing: 2,
               fontWeight: FontWeight.bold
               ),
+            ),Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children:[
+              ButtonCustom(texto: 'Aceptar', color: Colors.green, onPressed: () {}),
+              const SizedBox(width: 16),                      
+              ButtonCustom(texto: 'Rechazar', color: Colors.red, onPressed: () {}),
+              ]
             )
           ],
         ),
@@ -84,29 +92,29 @@ class _BSNumKeyboardState extends State<BSNumKeyboard> {
                       children: [
                         TableRow(
                           children:[
-                          _num('1',height),
-                          _num('2',height),
-                          _num('3',height),
+                            _num('1',height),
+                            _num('2',height),
+                            _num('3',height),
                           ]
                         ),
-                        TableRow(
-                          children:[
-                          _num('4',height),
-                          _num('5',height),
-                          _num('6',height),
+                      TableRow(
+                        children:[
+                            _num('4',height),
+                            _num('5',height),
+                            _num('6',height),
                           ]
                         ),
-                        TableRow(
-                          children:[
-                          _num('7',height),
-                          _num('8',height),
-                          _num('9',height),
+                      TableRow(
+                        children:[
+                            _num('7',height),
+                            _num('8',height),
+                            _num('9',height),
                           ]
                         ),
-                        TableRow(
-                          children:[
-                          _num('.',height),
-                          _num('0',height),
+                      TableRow(
+                        children:[
+                            _num('.',height),
+                            _num('0',height),
                           GestureDetector(
                             onLongPress: () {
                               setState(() {
@@ -120,24 +128,25 @@ class _BSNumKeyboardState extends State<BSNumKeyboard> {
                                 }
                               });
                             },
-                            behavior: HitTestBehavior.opaque,
-                            child: SizedBox(
-                              height: height,
-                              child: const Icon(
-                                Icons.backspace,
-                                size: 35,
-                              ),
+                              behavior: HitTestBehavior.opaque,
+                              child: SizedBox(
+                               height: height,
+                                child: const Icon(
+                                  Icons.backspace,
+                                  size: 35,
+                                ),
+                             ),
                             ),
-                          ),
                           ]
                         ),
-                      ],
-                    )
-                  ],
-                );
+                    ],
+                  )
+                ],
+              );
             },
           ),
         );
-    },);
+      },
+    );
   }
 }
