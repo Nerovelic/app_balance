@@ -28,20 +28,14 @@ class _BSNumKeyboardState extends State<BSNumKeyboard> {
               letterSpacing: 2,
               fontWeight: FontWeight.bold
               ),
-            ),Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children:[
-              ButtonCustom(texto: 'Aceptar', color: Colors.green, onPressed: () {}),
-              const SizedBox(width: 16),                      
-              ButtonCustom(texto: 'Rechazar', color: Colors.red, onPressed: () {}),
-              ]
-            )
+            ),
           ],
         ),
       ),
     );
   }
   _numPad(){
+    // ignore: no_leading_underscores_for_local_identifiers
     _num(String _text, double _height){
       return GestureDetector(
         behavior: HitTestBehavior.opaque,
@@ -140,6 +134,18 @@ class _BSNumKeyboardState extends State<BSNumKeyboard> {
                           ]
                         ),
                     ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children:[
+                       Padding(padding: const EdgeInsets.all(9.0),
+                      child: ButtonCustom(texto: 'Aceptar', color: Colors.green, onPressed: () {}),
+                      ),
+                      const SizedBox(width: 150),
+                      Padding(padding: const EdgeInsets.all(9.0),
+                      child: ButtonCustom(texto: 'Rechazar', color: Colors.red, onPressed: () {}),
+                      )                                            
+                    ]
                   )
                 ],
               );
@@ -150,3 +156,5 @@ class _BSNumKeyboardState extends State<BSNumKeyboard> {
     );
   }
 }
+
+

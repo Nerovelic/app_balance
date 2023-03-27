@@ -15,6 +15,7 @@ class _ButtonCustomState extends State<ButtonCustom> {
       onPressed: () {
       },
       style: ElevatedButton.styleFrom(
+        // foregroundColor: Theme.of(context).primaryColorDark, 
         padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20), 
         backgroundColor: widget.color,
         textStyle: const TextStyle(
