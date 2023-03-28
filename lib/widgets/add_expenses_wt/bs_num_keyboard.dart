@@ -37,12 +37,15 @@ class _BSNumKeyboardState extends State<BSNumKeyboard> {
   _numPad(){
     // ignore: no_leading_underscores_for_local_identifiers
     _num(String _text, double _height){
+      final RegExp expresionRegular = RegExp(r'^\$?([1-9][0-9]*|0)(\.[0-9]{0,2})?$');
       return GestureDetector(
         behavior: HitTestBehavior.opaque,
         onTap: (){
           setState(() {
             if (importe == '0.00') importe = '';
+             if (expresionRegular.hasMatch(importe + _text)){
               importe += _text;
+             }
           });
         } ,
         child: SizedBox(
