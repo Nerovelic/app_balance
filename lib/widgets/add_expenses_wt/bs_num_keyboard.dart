@@ -1,4 +1,4 @@
-import 'package:balance/widgets/add_expenses_wt/button_custom.dart';
+import 'package:balance/widgets/balance_page_wt/button_custom.dart';
 import 'package:flutter/material.dart';
 
 class BSNumKeyboard extends StatefulWidget {
@@ -13,39 +13,39 @@ class _BSNumKeyboardState extends State<BSNumKeyboard> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        _numPad();
-      },
-      child: Padding(
-        padding: const EdgeInsets.all(40),
-        child: Column(
-          children: [
-            const Text('Cantidad Ingresada:'),
-            Text('\$ $importe',
-            style: const TextStyle(
-              fontSize: 30, 
-              letterSpacing: 2,
-              fontWeight: FontWeight.bold
-              ),
+  String Function(Match) mathFunc;
+  RegExp reg = RegExp(r'^(0|[1-9][0-9]*)(\.[0-9]{0,2})?$');
+  mathFunc = (Match match) => '${match[1]?.replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]},')}${match[2] != null ? match[2]?.padRight(3, '0') : ''}';
+  return GestureDetector(
+    onTap: () {
+      _numPad();
+    },
+    child: Padding(
+      padding: const EdgeInsets.all(40),
+      child: Column(
+        children: [
+          const Text('Cantidad Ingresada:'),
+          Text('\$ ${reg.hasMatch(importe) ? importe.replaceAllMapped(reg, mathFunc) : "0"}',
+          style: const TextStyle(
+            fontSize: 30, 
+            letterSpacing: 2,
+            fontWeight: FontWeight.bold
             ),
-          ],
-        ),
+          ),
+        ],
       ),
-    );
+    ),
+  );
   }
   _numPad(){
     // ignore: no_leading_underscores_for_local_identifiers
     _num(String _text, double _height){
-      final RegExp expresionRegular = RegExp(r'^\$?([1-9][0-9]*|0)(\.[0-9]{0,2})?$');
       return GestureDetector(
         behavior: HitTestBehavior.opaque,
         onTap: (){
           setState(() {
-            if (importe == '0.00') importe = '';
-             if (expresionRegular.hasMatch(importe + _text)){
-              importe += _text;
-             }
+            if (importe == '0.00') importe = '';            
+            importe += _text;
           });
         } ,
         child: SizedBox(
@@ -72,87 +72,99 @@ class _BSNumKeyboardState extends State<BSNumKeyboard> {
       ),
       context: context, 
       builder: (BuildContext context){
-        return SizedBox(
-          height: 500,
-          child: LayoutBuilder(
-            builder: (BuildContext context, BoxConstraints constraints){
-                var height = constraints.biggest.height / 5;
-                return Column(
-                  children: [
-                    Table(
-                      border: TableBorder.symmetric(
-                        inside: const BorderSide(
-                          // color: Colors.grey,
-                          width: 0.1,
-                        )
-                      ),
-                      children: [
+        return WillPopScope(
+          onWillPop: () async => false,
+          child: SizedBox(
+            height: 500,
+            child: LayoutBuilder(
+              builder: (BuildContext context, BoxConstraints constraints){
+                  var height = constraints.biggest.height / 5;
+                  return Column(
+                    children: [
+                      Table(
+                        border: TableBorder.symmetric(
+                          inside: const BorderSide(
+                            // color: Colors.grey,
+                            width: 0.1,
+                          )
+                        ),
+                        children: [
+                          TableRow(
+                            children:[
+                              _num('1',height),
+                              _num('2',height),
+                              _num('3',height),
+                            ]
+                          ),
                         TableRow(
                           children:[
-                            _num('1',height),
-                            _num('2',height),
-                            _num('3',height),
-                          ]
-                        ),
-                      TableRow(
-                        children:[
-                            _num('4',height),
-                            _num('5',height),
-                            _num('6',height),
-                          ]
-                        ),
-                      TableRow(
-                        children:[
-                            _num('7',height),
-                            _num('8',height),
-                            _num('9',height),
-                          ]
-                        ),
-                      TableRow(
-                        children:[
-                            _num('.',height),
-                            _num('0',height),
-                          GestureDetector(
-                            onLongPress: () {
+                              _num('4',height),
+                              _num('5',height),
+                              _num('6',height),
+                            ]
+                          ),
+                        TableRow(
+                          children:[
+                              _num('7',height),
+                              _num('8',height),
+                              _num('9',height),
+                            ]
+                          ),
+                        TableRow(
+                          children:[
+                              _num('.',height),
+                              _num('0',height),
+                            GestureDetector(
+                              onLongPress: () {
+                                setState(() {
+                                  importe = '0.00';
+                                });
+                              },
+                              onTap: () {
+                                setState(() {
+                                  if (importe.isNotEmpty){
+                                    importe = importe.substring(0,importe.length-1);
+                                  }
+                                });
+                              },
+                                behavior: HitTestBehavior.opaque,
+                                child: SizedBox(
+                                 height: height,
+                                  child: const Icon(
+                                    Icons.backspace,
+                                    size: 35,
+                                  ),
+                               ),
+                              ),
+                            ]
+                          ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children:[
+                        Expanded(child: 
+                            ButtonCustom(texto: 'Aceptar', color: Colors.green, onTap: () {
+                              setState(() {
+                                if (importe.isEmpty) importe = '0.00';
+                                Navigator.pop(context);
+                              });
+                            }),
+                         ),
+                        Expanded(child: 
+                            ButtonCustom(texto: 'Rechazar', color: Colors.red, onTap: () {
                               setState(() {
                                 importe = '0.00';
+                                Navigator.pop(context);
                               });
-                            },
-                            onTap: () {
-                              setState(() {
-                                if (importe.isNotEmpty){
-                                  importe = importe.substring(0,importe.length-1);
-                                }
-                              });
-                            },
-                              behavior: HitTestBehavior.opaque,
-                              child: SizedBox(
-                               height: height,
-                                child: const Icon(
-                                  Icons.backspace,
-                                  size: 35,
-                                ),
-                             ),
-                            ),
-                          ]
-                        ),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children:[
-                       Padding(padding: const EdgeInsets.all(9.0),
-                      child: ButtonCustom(texto: 'Aceptar', color: Colors.green, onPressed: () {}),
-                      ),
-                      const SizedBox(width: 150),
-                      Padding(padding: const EdgeInsets.all(9.0),
-                      child: ButtonCustom(texto: 'Rechazar', color: Colors.red, onPressed: () {}),
-                      )                                            
-                    ]
-                  )
-                ],
-              );
-            },
+                          }),
+                        )
+                      ]
+                    )
+                  ],
+                );
+              },
+            ),
           ),
         );
       },
