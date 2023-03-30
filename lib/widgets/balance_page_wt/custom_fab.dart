@@ -21,7 +21,7 @@ class CustomFAB extends StatelessWidget {
         onTap: () {
           Navigator.push(
             context, 
-            AnimationCustom(paginas: const AddExpenses(), duracion: const Duration(milliseconds: 500), posicion: const Alignment(0.8, 1))
+            AnimationCustom(paginas: AddExpenses(), duracion: const Duration(milliseconds: 500), posicion: const Alignment(0.8, 1))
           );
         },
       ),
@@ -36,7 +36,7 @@ class CustomFAB extends StatelessWidget {
         onTap: () {
           Navigator.push(
             context, 
-            AnimationCustom(paginas: const AddEntries(), duracion: const Duration(milliseconds: 500), posicion: const Alignment(0.8, 1))
+            AnimationCustom(paginas: AddEntries(), duracion: const Duration(milliseconds: 500), posicion: const Alignment(0.8, 1))
           );
         }
       )

@@ -1,10 +1,12 @@
+import 'package:balance/models/combined_model.dart';
 import 'package:balance/utils/constants.dart';
 import 'package:balance/widgets/add_expenses_wt/bs_num_keyboard.dart';
 import 'package:balance/widgets/add_expenses_wt/comment_box.dart';
 import 'package:flutter/material.dart';
 
 class AddEntries extends StatelessWidget {
-  const AddEntries({super.key});
+  CombinedModel combinedModel = CombinedModel();
+  // const AddEntries({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +23,7 @@ class AddEntries extends StatelessWidget {
         ),
         body: Column(
           children: [
-            const BSNumKeyboard(),
+            BSNumKeyboard(combinedModel: combinedModel,),
             Expanded(
               child: Container(
                 width: double.infinity,
@@ -30,13 +32,19 @@ class AddEntries extends StatelessWidget {
                 ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
-                    Text('Fecha 22 marzo del 2023'),
-                    Text('Seleccionar Categoría'),
-                    CommentBox(),
+                  children: [
+                    const Text('Fecha 22 marzo del 2023'),
+                    const Text('Seleccionar Categoría'),
+                    CommentBox(combinedModel: combinedModel),
                     Expanded(
                       child: Center(
-                        child: Text('Botón')
+                          child: GestureDetector(
+                          onTap: () {
+                            print(combinedModel.comment);
+                            print(combinedModel.amount);
+                          },
+                          child: const Text('Botón')
+                        )
                       )
                     )
                   ],

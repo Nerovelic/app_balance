@@ -1,8 +1,10 @@
+import 'package:balance/models/combined_model.dart';
 import 'package:balance/widgets/balance_page_wt/button_custom.dart';
 import 'package:flutter/material.dart';
 
 class BSNumKeyboard extends StatefulWidget {
-  const BSNumKeyboard({super.key});
+  final CombinedModel combinedModel;
+  const BSNumKeyboard({super.key, required this.combinedModel});
 
   @override
   State<BSNumKeyboard> createState() => _BSNumKeyboardState();
@@ -13,29 +15,29 @@ class _BSNumKeyboardState extends State<BSNumKeyboard> {
 
   @override
   Widget build(BuildContext context) {
-  String Function(Match) mathFunc;
-  RegExp reg = RegExp(r'^(0|[1-9][0-9]*)(\.[0-9]{0,2})?$');
-  mathFunc = (Match match) => '${match[1]?.replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]},')}${match[2] != null ? match[2]?.padRight(3, '0') : ''}';
-  return GestureDetector(
-    onTap: () {
-      _numPad();
-    },
-    child: Padding(
-      padding: const EdgeInsets.all(40),
-      child: Column(
-        children: [
-          const Text('Cantidad Ingresada:'),
-          Text('\$ ${reg.hasMatch(importe) ? importe.replaceAllMapped(reg, mathFunc) : "0"}',
-          style: const TextStyle(
-            fontSize: 30, 
-            letterSpacing: 2,
-            fontWeight: FontWeight.bold
+    String Function(Match) mathFunc;
+    RegExp reg = RegExp(r'^(0|[1-9][0-9]*)(\.[0-9]{0,2})?$');
+    mathFunc = (Match match) => '${match[1]?.replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]},')}${match[2] != null ? match[2]?.padRight(3, '') : ''}';
+    return GestureDetector(
+      onTap: () {
+        _numPad();
+      },
+      child: Padding(
+        padding: const EdgeInsets.all(40),
+        child: Column(
+          children: [
+            const Text('Cantidad Ingresada:'),
+            Text('\$ ${reg.hasMatch(importe) ? importe.replaceAllMapped(reg, mathFunc) : "0.00"}',
+            style: const TextStyle(
+              fontSize: 30, 
+              letterSpacing: 2,
+              fontWeight: FontWeight.bold
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
-    ),
-  );
+    );
   }
   _numPad(){
     // ignore: no_leading_underscores_for_local_identifiers
@@ -146,8 +148,14 @@ class _BSNumKeyboardState extends State<BSNumKeyboard> {
                         Expanded(child: 
                             ButtonCustom(texto: 'Aceptar', color: Colors.green, onTap: () {
                               setState(() {
-                                if (importe.isEmpty) importe = '0.00';
+                                if (importe.isEmpty) {
+                                  importe = '0.00';
+                                } else if (!RegExp(r'^\d*\.?\d+$').hasMatch(importe)){
+                                  importe = '0.00';
+                                }
                                 Navigator.pop(context);
+                                print(importe);
+                                widget.combinedModel.amount = double.parse(importe);
                               });
                             }),
                          ),
@@ -156,6 +164,7 @@ class _BSNumKeyboardState extends State<BSNumKeyboard> {
                               setState(() {
                                 importe = '0.00';
                                 Navigator.pop(context);
+                                widget.combinedModel.amount = double.parse(importe);
                               });
                           }),
                         )

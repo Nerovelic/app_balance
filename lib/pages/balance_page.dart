@@ -48,7 +48,7 @@ class _BalancePageState extends State<BalancePage> {
       body: CustomScrollView(
         controller: _scrollController,
         slivers: [
-            SliverAppBar(
+             SliverAppBar(
             elevation: 0.0,
             expandedHeight: 120,
             flexibleSpace: FlexibleSpaceBar(

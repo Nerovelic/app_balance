@@ -39,8 +39,8 @@ class MyApp extends StatelessWidget {
       initialRoute: 'home',
       routes: {
         'home': (_) => const HomePage(),
-        'AddEntries':(_) => const AddEntries(),
-        'AddExpenses':(_) => const AddExpenses()
+        'AddEntries':(_) =>  AddEntries(),
+        'AddExpenses':(_) =>  AddExpenses()
       },
     );
   }
